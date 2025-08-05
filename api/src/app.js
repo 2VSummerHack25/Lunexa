@@ -33,7 +33,7 @@ export default express()
   });
 
 function shouldCompress(request, response) {
-  if (request.headers['x-no-compresponsesion']) {
+  if (request.headers['x-no-compression']) {
     // don't compress responses with this request header
     return false;
   }
