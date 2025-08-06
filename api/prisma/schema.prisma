@@ -8,10 +8,172 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique
-  name      String
-  age       Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                String   @id @default(uuid()) @db.Uuid
+  email             String   @unique
+  name              String
+  role              String
+  department        String?
+  level             String?
+  bio               String?
+  interests         String[]
+  goals             String[]
+  
+  // Profile completion
+  profileCompleted  Boolean  @default(false)
+  surveyCompleted   Boolean  @default(false)
+  
+  // Timestamps
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  sentRequests      ConnectionRequest[] @relation("SentRequests")
+  receivedRequests  ConnectionRequest[] @relation("ReceivedRequests")
+  matches           Match[]            @relation("UserMatches")
+  matchedWith       Match[]            @relation("MatchedWith")
+  availability      Availability[]
+  actionItems       ActionItem[]
+  surveyResponses   SurveyResponse[]
+}
+
+model ConnectionRequest {
+  id                String   @id @default(uuid()) @db.Uuid
+  senderId          String   @db.Uuid
+  receiverId        String   @db.Uuid
+  status            RequestStatus @default(PENDING)
+  message           String?
+  requestedDate     DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  sender            User     @relation("SentRequests", fields: [senderId], references: [id])
+  receiver          User     @relation("ReceivedRequests", fields: [receiverId], references: [id])
+  
+  @@unique([senderId, receiverId])
+}
+
+model Match {
+  id                String   @id @default(uuid()) @db.Uuid
+  user1Id           String   @db.Uuid
+  user2Id           String   @db.Uuid
+  matchScore        Float
+  matchReason       String
+  status            MatchStatus @default(ACTIVE)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  user1             User     @relation("UserMatches", fields: [user1Id], references: [id])
+  user2             User     @relation("MatchedWith", fields: [user2Id], references: [id])
+  
+  @@unique([user1Id, user2Id])
+}
+
+model Availability {
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @db.Uuid
+  dayOfWeek         Int
+  startTime         String
+  endTime           String
+  isAvailable       Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  user              User     @relation(fields: [userId], references: [id])
+}
+
+model ActionItem {
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @db.Uuid
+  type              ActionItemType
+  title             String
+  description       String?
+  isCompleted       Boolean  @default(false)
+  priority          Priority @default(MEDIUM)
+  dueDate           DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  user              User     @relation(fields: [userId], references: [id])
+}
+
+model Survey {
+  id                String   @id @default(uuid()) @db.Uuid
+  title             String
+  description       String?
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  questions         SurveyQuestion[]
+  responses         SurveyResponse[]
+}
+
+model SurveyQuestion {
+  id                String   @id @default(uuid()) @db.Uuid
+  surveyId          String   @db.Uuid
+  questionText      String
+  questionType      QuestionType
+  options           String[]
+  order             Int
+  isRequired        Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  
+  // Relationships
+  survey            Survey   @relation(fields: [surveyId], references: [id])
+  responses         SurveyResponse[]
+}
+
+model SurveyResponse {
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @db.Uuid
+  surveyId          String   @db.Uuid
+  questionId        String   @db.Uuid
+  answer            String
+  createdAt         DateTime @default(now())
+  
+  // Relationships
+  user              User     @relation(fields: [userId], references: [id])
+  survey            Survey   @relation(fields: [surveyId], references: [id])
+  question          SurveyQuestion @relation(fields: [questionId], references: [id])
+  
+  @@unique([userId, questionId])
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  CANCELLED
+}
+
+enum MatchStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+enum ActionItemType {
+  SURVEY
+  PROFILE_COMPLETION
+  AVAILABILITY_UPDATE
+  GOAL_SETTING
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum QuestionType {
+  TEXT
+  MULTIPLE_CHOICE
+  RATING
+  BOOLEAN
 }
