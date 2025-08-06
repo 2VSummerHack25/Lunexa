@@ -80,7 +80,6 @@ babel.config.json
 
 # Miscellaneous
 *.log
-*.lock
 *.bak
 *.orig
 *.rej# Node.js
@@ -158,7 +157,6 @@ babel.config.json
 
 # Miscellaneous
 *.log
-*.lock
 *.bak
 *.orig
 *.rej
@@ -217,7 +215,6 @@ secrets.json
 # Miscellaneous
 coverage/
 *.log
-*.lock
 *.bak
 *.orig
 *.rej
