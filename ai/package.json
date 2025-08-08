@@ -1,0 +1,16 @@
+{
+  "name": "lunexa-ai",
+  "version": "1.0.0",
+  "description": "AI features for Lunexa",
+  "main": "index.js",
+  "repository": "https://github.com/2VSummerHack25/Lunexa.git",
+  "author": "Vincent D'Angelo, Sarah Hourani, Kevin Huang, Vincent Huang, Jesse Najera, Pablo Najera",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@langchain/core": "^0.3.68",
+    "@langchain/langgraph": "^0.4.3",
+    "@langchain/openai": "^0.6.6",
+    "dotenv": "^17.2.1"
+  }
+}
