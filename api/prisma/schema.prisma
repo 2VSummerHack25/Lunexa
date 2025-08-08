@@ -17,12 +17,14 @@ model User {
 }
 
 model Feedback {
-  id              String  @id @default(uuid())  @db.Uuid
-  userId          String @db.Uuid
+  id              String    @id @default(uuid())  @db.Uuid
+  user            User      @relation(fields: [userId], references: [id])
+  userId          String    @db.Uuid
 
-  matchedUserId   String  @db.Uuid
+  matchedUserId   String    @db.Uuid
+  matchReason     String
   rating          Int
   comment         String?
 
-  createdAt       DateTime @default(now())
+  createdAt       DateTime  @default(now())
 }
