@@ -42,4 +42,14 @@ router.delete('/:id', async (request, response, next) => {
   }
 });
 
+router.get('/:id/matches', async (request, response, next) => {
+  try {
+    response.json({
+      message: `Retrieve matches for user by ID route is working for ID: ${request.params.id}`,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;
