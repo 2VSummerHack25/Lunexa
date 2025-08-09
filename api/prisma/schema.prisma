@@ -8,17 +8,18 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique
+  id        String     @id @default(uuid()) @db.Uuid
+  email     String     @unique
   name      String
   age       Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  feedback  Feedback[] @relation("user")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Feedback {
   id              String    @id @default(uuid())  @db.Uuid
-  user            User      @relation(fields: [userId], references: [id])
+  user            User      @relation(fields: [userId], references: [id], name: "user")
   userId          String    @db.Uuid
 
   matchedUserId   String    @db.Uuid
