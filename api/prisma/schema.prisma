@@ -12,20 +12,22 @@ model User {
   email     String     @unique
   name      String
   age       Int?
-  feedback  Feedback[] @relation("user")
+
+  matchLinks  MatchParticipant[]
+  authoredFeedback  Feedback[] @relation("FeedbackAuthor")
+  receivedFeedback  Feedback[] @relation("FeedbackSubject")
+
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
 
 model Match {
   id            String    @id @default(uuid()) @db.Uuid
-  user1Id         String    @db.Uuid
-  user2Id         String    @db.Uuid
+  
   reason        MatchReason 
   status        Status
-
-  user1         User      @relation("UserIsMatch1", fields: [user1Id], references: [id])
-  user2         User      @relation("UserIsMatch2", fields: [user2Id], references: [id])
+  
+  participants MatchParticipant[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -43,6 +45,17 @@ model Match {
     REJECTED
   }
 
+model MatchParticipant {
+  matchId   String   @db.Uuid
+  userId    String   @db.Uuid
+  
+  createdAt DateTime @default(now())
+
+  match   Match @relation(fields: [matchId], references: [id])
+  user    User  @relation(fields: [userId], references: [id])
+
+}
+
 model Feedback {
   id              String           @id @default(uuid())  @db.Uuid
   user            User             @relation("FeedbackAuthor", fields: [userId], references: [id])
@@ -52,6 +65,7 @@ model Feedback {
   matchedUserId   String           @db.Uuid
 
   matchId         String           @db.Uuid
+  match           Match            @relation(fields: [matchId], references: [id])
 
   reason          MatchReason
   rating          Int
