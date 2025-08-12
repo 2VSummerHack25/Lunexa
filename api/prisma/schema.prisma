@@ -7,34 +7,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum USTimezone {
+  EST  // Eastern Standard Time
+  CST  // Central Standard Time
+  MST  // Mountain Standard Time
+  PST  // Pacific Standard Time
+  AKST // Alaska Standard Time
+  HST  // Hawaii Standard Time
+  AST  // Atlantic Standard Time
+}
+
 model User {
   id        String   @id @default(uuid()) @db.Uuid
   email     String   @unique
   name      String
-  role      String // jobe role/position
+  role      String // job role/position
   department String? 
   level     String? 
   age       Int?
 
-  timezone String? // @pablonajera Would this data be easier to grab from 
+  timezone USTimezone?
 
   // User preferences
   interests   String[] // Array of interests
   goals       String[] // career goals
 
   // Social and networking preferences
-  lookingForMentorship Boolean @default(false)
-  openToMentoring      Boolean @default(false)
+  lookingForMentorship Boolean @default(true)
+  openToMentoring      Boolean @default(true)
   networkingGoals      String[] // "make friends", "build connections", "get advice"
   
-  //relations
-  matches Match[] @relation("UserMatches") 
-
-  // RAG pipeline data
-  slack   Json?
-  outlook Json?
-  gcal    Json? 
-
+  //Slack data
+  slackID   String?
+  slackName String? 
+  slackObj  Json? 
 
   //Metadata
   createdAt DateTime @default(now())
