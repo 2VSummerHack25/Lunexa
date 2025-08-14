@@ -17,6 +17,13 @@ enum USTimezone {
   AST  // Atlantic Standard Time
 }
 
+enum MentorshipStyle {
+  FRIENDLY     // Casual, approachable mentorship
+  PROFESSIONAL // Formal, career-focused mentorship
+  PEER         // Collaborative, equal-level mentorship
+}
+
+
 model User {
   id        String   @id @default(uuid()) @db.Uuid
   email     String   @unique
@@ -45,4 +52,17 @@ model User {
   //Metadata
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  //user-facing
+  values                String[]?
+  careerPersonalGoals   String[]?
+  skillDevelopment      String[]?
+  motivators            String[]?
+
+
+  //mentorship:
+  desiredStyle          MentorshipStyle?
+  skillsTheyBring       String[]?
+  areasForExposure      String[]?
+  dealBreakers          String[]?
 }
