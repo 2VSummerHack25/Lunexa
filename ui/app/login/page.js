@@ -24,7 +24,7 @@ export default function LoginPage() {
           <Input className={styles.input} size="large" placeholder="Password" />
         </form>
         <Button
-          color="grey"
+          color="#4096ff"
           variant="solid"
           type="primary"
           className={styles.submitButton}
@@ -36,6 +36,7 @@ export default function LoginPage() {
         </Link>
         <div className={styles.signUpContainer}>
           <h4 className={styles.signUpTitle}>{"New to Lunexa?"}</h4>
+          {/* TODO: create and link Forgot Password page */}
           <Link href="/" className={styles.createAccount}>
             {" "}
             Sign up
