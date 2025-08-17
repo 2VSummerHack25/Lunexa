@@ -10,7 +10,7 @@ body {
 :root {
   --primary-color: #8B52E0;
   --secondary-color: #63A7A5;
+  --global-background-color: #E3DFDB;
   --background-color: white;
-  --subtle-background-color: #E3DFDB;
-  --dark-color: #171717;
+  --text-color: #171717;
  }
