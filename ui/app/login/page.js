@@ -23,12 +23,7 @@ export default function LoginPage() {
           </div>
           <Input className={styles.input} size="large" placeholder="Password" />
         </form>
-        <Button
-          color="#4096ff"
-          variant="solid"
-          type="primary"
-          className={styles.submitButton}
-        >
+        <Button variant="solid" type="primary" className={styles.submitButton}>
           Login
         </Button>
         <Link href="/" className={styles.forgotPassword}>
@@ -38,7 +33,6 @@ export default function LoginPage() {
           <h4 className={styles.signUpTitle}>{"New to Lunexa?"}</h4>
           {/* TODO: create and link Forgot Password page */}
           <Link href="/" className={styles.createAccount}>
-            {" "}
             Sign up
           </Link>
         </div>
