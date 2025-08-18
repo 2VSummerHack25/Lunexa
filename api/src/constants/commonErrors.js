@@ -14,3 +14,16 @@ export class RequestError extends Error {
   }
 }
 Object.freeze(RequestError.prototype);
+
+/**
+ * NotFoundError to be used when a requested resource
+ * could not be found.
+ */
+export class NotFoundError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'NotFoundError';
+    this.statusCode = 404;
+  }
+}
+Object.freeze(NotFoundError.prototype);
