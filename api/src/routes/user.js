@@ -5,6 +5,16 @@ import { RequestError, NotFoundError } from '../constants/commonErrors.js';
 
 const router = express.Router();
 
+function validateUserId(userId) {
+  if (!userId) {
+    throw new RequestError('Missing user id');
+  }
+
+  if (userId.length < 32) {
+    throw new NotFoundError(`No user found for ID: ${userId}`);
+  }
+}
+
 router.get('/', async (request, response, next) => {
   try {
     response.json({
@@ -15,13 +25,21 @@ router.get('/', async (request, response, next) => {
   }
 });
 
-router.get('/:id', async (request, response, next) => {
+router.get('/:userId', async (request, response, next) => {
+  const { userId } = request.params;
+
   try {
-    response.json({
-      message: `Get user by ID route is working for ID: ${request.params.id}`,
+    validateUserId(userId);
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
     });
+    if (!user) {
+      throw new NotFoundError(`User with ID ${userId} not found`);
+    }
+
+    return response.json(user);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -45,19 +63,12 @@ router.delete('/:id', async (request, response, next) => {
   }
 });
 
-router.get('/:userId/matches', async (req, res, next) => {
-  const { userId } = req.params;
-
-  // validate userId
-  if (!userId) {
-    throw new RequestError('Missing user id');
-  }
-
-  if (userId.length < 32) {
-    throw new NotFoundError(`No user found for ID: ${userId}`);
-  }
+router.get('/:userId/matches', async (request, response, next) => {
+  const { userId } = request.params;
 
   try {
+    validateUserId(userId);
+
     // make sure user exists in our database
     const user = await prisma.user.findUnique({
       where: { id: userId },
@@ -89,7 +100,7 @@ router.get('/:userId/matches', async (req, res, next) => {
     });
 
     extractMatchedUsers(matches, userId);
-    return res.json(matches);
+    return response.json(matches);
   } catch (error) {
     return next(error);
   }
