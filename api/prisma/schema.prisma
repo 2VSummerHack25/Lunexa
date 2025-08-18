@@ -7,11 +7,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum USTimezone {
+  EST  // Eastern Standard Time
+  CST  // Central Standard Time
+  MST  // Mountain Standard Time
+  PST  // Pacific Standard Time
+  AKST // Alaska Standard Time
+  HST  // Hawaii Standard Time
+  AST  // Atlantic Standard Time
+}
+
+enum MentorshipStyle {
+  FRIENDLY     // Casual, approachable mentorship
+  PROFESSIONAL // Formal, career-focused mentorship
+  PEER         // Collaborative, equal-level mentorship
+}
+
+
 model User {
   id    String @id @default(uuid()) @db.Uuid
   email String @unique
   name  String
+  role      String?
+  department String?
+  level     String?
   age   Int?
+
+  timezone USTimezone?
+// career goals
+
+  // Social and networking preferences
+  isLookingForMentorship Boolean @default(true)
+  isOpenToMentoring      Boolean @default(true)
+  networkingGoals      String[] // "make friends", "build connections", "get advice"
+
+  //Slack data
+  slackID   String?
+  slackName String?
+  slackObj  Json?
+
+  //Metadata
 
   matchLinks       MatchParticipant[]
   authoredFeedback Feedback[]         @relation("FeedbackAuthor")
@@ -19,6 +54,21 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // User preferences
+  interests   String?
+  goals       String?
+  values      String?
+  careerPersonalGoals   String?
+  skillDevelopmentAreas      String?
+  motivators            String?
+
+
+  // mentorship:
+  desiredStyle          MentorshipStyle?
+  skills       String?
+  areasForExposure      String?
+  dealBreakers          String?
 }
 
 model Match {
