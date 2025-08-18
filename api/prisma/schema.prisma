@@ -25,44 +25,103 @@ enum MentorshipStyle {
 
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique
-  name      String
+  id    String @id @default(uuid()) @db.Uuid
+  email String @unique
+  name  String
   role      String // job role/position
-  department String? 
-  level     String? 
-  age       Int?
+  department String?
+  level     String?
+  age   Int?
 
   timezone USTimezone?
-
-  // User preferences
-  interests   String[] // Array of interests
-  goals       String[] // career goals
+// career goals
 
   // Social and networking preferences
-  lookingForMentorship Boolean @default(true)
-  openToMentoring      Boolean @default(true)
+  isLookingForMentorship Boolean @default(true)
+  isOpenToMentoring      Boolean @default(true)
   networkingGoals      String[] // "make friends", "build connections", "get advice"
-  
+
   //Slack data
   slackID   String?
-  slackName String? 
-  slackObj  Json? 
+  slackName String?
+  slackObj  Json?
 
   //Metadata
+
+  matchLinks       MatchParticipant[]
+  authoredFeedback Feedback[]         @relation("FeedbackAuthor")
+  receivedFeedback Feedback[]         @relation("FeedbackSubject")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  //user-facing
-  values                String[]?
-  careerPersonalGoals   String[]?
-  skillDevelopment      String[]?
-  motivators            String[]?
+  // User preferences
+  interests   String?
+  goals       String?
+  values      String?
+  careerPersonalGoals   String?
+  skillDevelopmentAreas      String?
+  motivators            String?
 
 
-  //mentorship:
+  // mentorship:
   desiredStyle          MentorshipStyle?
-  skillsTheyBring       String[]?
-  areasForExposure      String[]?
-  dealBreakers          String[]?
+  skills       String?
+  areasForExposure      String?
+  dealBreakers          String?
+}
+
+model Match {
+  id String @id @default(uuid()) @db.Uuid
+
+  reason MatchReason
+  status Status
+
+  participants MatchParticipant[]
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Feedback  Feedback[]
+}
+
+enum MatchReason {
+  INTERESTS
+  CAREER_GOALS
+  MENTORSHIP
+}
+
+enum Status {
+  SUGGESTED
+  ACCEPTED
+  REJECTED
+}
+
+model MatchParticipant {
+  matchId String @db.Uuid
+  userId  String @db.Uuid
+
+  createdAt DateTime @default(now())
+
+  match Match @relation(fields: [matchId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@id([userId, matchId])
+}
+
+model Feedback {
+  id     String @id @default(uuid()) @db.Uuid
+  user   User   @relation("FeedbackAuthor", fields: [userId], references: [id])
+  userId String @db.Uuid
+
+  matchedUser   User   @relation("FeedbackSubject", fields: [matchedUserId], references: [id])
+  matchedUserId String @db.Uuid
+
+  matchId String @db.Uuid
+  match   Match  @relation(fields: [matchId], references: [id])
+
+  reason  MatchReason
+  rating  Int
+  comment String?
+
+  createdAt DateTime @default(now())
 }

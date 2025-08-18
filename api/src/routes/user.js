@@ -1,4 +1,7 @@
 import express from 'express';
+import prisma from '../tools/prisma.js';
+import { extractMatchedUsers } from '../util/matchUtil.js';
+import { RequestError, NotFoundError } from '../constants/commonErrors.js';
 
 const router = express.Router();
 
@@ -39,6 +42,56 @@ router.delete('/:id', async (request, response, next) => {
     });
   } catch (error) {
     next(error);
+  }
+});
+
+router.get('/:userId/matches', async (req, res, next) => {
+  const { userId } = req.params;
+
+  // validate userId
+  if (!userId) {
+    throw new RequestError('Missing user id');
+  }
+
+  if (userId.length < 32) {
+    throw new NotFoundError(`No user found for ID: ${userId}`);
+  }
+
+  try {
+    // make sure user exists in our database
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new NotFoundError(`User with ID ${userId} not found`);
+    }
+
+    const matches = await prisma.match.findMany({
+      where: {
+        participants: { some: { userId } },
+      },
+      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }], //order by newest + id
+      include: {
+        //this is the info we grab for each participants object
+        participants: {
+          select: {
+            userId: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    extractMatchedUsers(matches, userId);
+    return res.json(matches);
+  } catch (error) {
+    return next(error);
   }
 });
 
