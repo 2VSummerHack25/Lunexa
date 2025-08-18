@@ -2,6 +2,7 @@ import express from 'express';
 import prisma from '../tools/prisma.js';
 import { extractMatchedUsers } from '../util/matchUtil.js';
 import { RequestError, NotFoundError } from '../constants/commonErrors.js';
+import { filter } from '../util/objectUtil.js';
 
 const router = express.Router();
 
@@ -43,11 +44,36 @@ router.get('/:userId', async (request, response, next) => {
   }
 });
 
-router.patch('/:id', async (request, response, next) => {
+router.patch('/:userId', async (request, response, next) => {
+  const { userId } = request.params;
+
+  const changeableFields = [
+    'name',
+    'age',
+    'isLookingForMentorship',
+    'isOpenToMentoring',
+    'networkingGoals',
+    'careerPersonalGoals',
+    'skillDevelopmentAreas',
+    'desiredStyle',
+    'dealBreakers',
+    'interests',
+    'goals',
+    'values',
+    'motivators',
+  ];
+
   try {
-    response.json({
-      message: `Update user by ID route is working for ID: ${request.params.id}`,
+    const filteredUpdateData = filter(request.body, changeableFields);
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: filteredUpdateData,
     });
+
+    response.json(updatedUser);
   } catch (error) {
     next(error);
   }
