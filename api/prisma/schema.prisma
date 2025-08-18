@@ -28,7 +28,7 @@ model User {
   id    String @id @default(uuid()) @db.Uuid
   email String @unique
   name  String
-  role      String // job role/position
+  role      String?
   department String?
   level     String?
   age   Int?
