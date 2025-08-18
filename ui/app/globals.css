@@ -6,3 +6,11 @@ body {
   padding: 0;
   margin: 0;
 }
+
+:root {
+  --primary-color: #8B52E0;
+  --secondary-color: #63A7A5;
+  --global-background-color: #E3DFDB;
+  --background-color: white;
+  --text-color: #171717;
+ }
