@@ -21,7 +21,7 @@ async function seed() {
 
   // Generate and create users
   console.log('👤 Creating 500 users...');
-  const users = generateUsers(slackData, 500);
+  const users = await generateUsers(slackData, 500);
   const usersInDb = await createUsersInDatabase(users);
   console.log(`✅ Created ${usersInDb.length} users`);
 
@@ -35,7 +35,10 @@ async function seed() {
 
 function loadSlackData() {
   return JSON.parse(
-    readFileSync(join(__dirname, '../sampleData/fake_slack_users.json'), 'utf-8')
+    readFileSync(
+      join(__dirname, '../../../sampleData/fake_slack_users.json'),
+      'utf-8'
+    )
   );
 }
 
