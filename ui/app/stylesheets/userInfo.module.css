@@ -1,0 +1,56 @@
+.card {
+  height: 224px;
+  width: 464px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow:hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.cardTop {
+  padding: 24px;
+  display:flex;
+  flex-direction: row;
+  height: 70%;
+  gap: 20px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+}
+
+.subtitle {
+  font-weight: normal;
+}
+
+.buttonContainer {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.meetingButton {
+  font-weight:500;
+}
+
+.divider {
+  height: 10px;
+  width: 100%;
+  background-color: var(--global-background-color);
+}
+
+.cardBottom {
+  background-color: #eaf4fd;
+  padding: 24px;
+  color: #166CFF;
+}

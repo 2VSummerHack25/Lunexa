@@ -2,11 +2,14 @@ import { Avatar, Image } from "antd";
 import styles from "../stylesheets/profilePicture.module.css";
 import { UserOutlined } from "@ant-design/icons";
 
-export default function ReplaceWithComponentName({ size, url }) {
+export default function ProfilePicture({ size, url }) {
   let width = 200;
   switch (size) {
-    case "small":
+    case "xsmall":
       width = 50;
+      break;
+    case "small":
+      width = 100;
       break;
     case "medium":
       width = 150;
