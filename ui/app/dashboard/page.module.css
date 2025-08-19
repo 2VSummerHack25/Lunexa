@@ -1,0 +1,181 @@
+.page {
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.leftSection {
+  margin-top: 64px;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+}
+
+.leftTitle {
+  margin-bottom: 64px;
+}
+
+.userInfoContainer {
+  margin-bottom: 44px;
+}
+
+.linkContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.link {
+  color: black;
+  text-decoration: none;
+}
+
+.sectionDivider {
+  margin-top: 64px;
+  width: 5px;
+  border-radius: 5px;
+  background-color: var(--global-background-color);
+  margin-bottom: 64px;
+  margin-right: 24px;
+}
+
+.middleSection { 
+  margin-top: 64px;
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+.pageHeaders {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  margin-bottom: 64px;
+}
+
+.pageTitle {
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: grey;
+  font-weight: normal;
+}
+
+.cardSection {
+  display: flex;
+  flex-direction: row;
+  gap: 44px;
+  margin-bottom: 124px;
+}
+
+.card {
+  border-radius: 16px;
+  background-color: var(--global-background-color)
+}
+
+.matchesCard {
+  border-radius: 16px;
+  background-color: purple;
+  color: white;
+}
+
+.feedbackCard {
+  border-radius: 16px;
+  background-color: orange;
+}
+
+.appointmentCard {
+  border-radius: 16px;
+  background-color: green;
+}
+
+.lowerContainer {
+  display: flex;
+  width: 100%
+}
+
+.lowerLeft {
+  width: 50%;
+}
+
+.lowerRight {
+  width: 50%;
+}
+
+.lowerTitle {
+  margin-bottom: 44px;
+}
+
+.taskContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.statContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.rightSection {
+  margin-top: 64px;
+  width: 20%;
+}
+
+.rightTitle {
+  margin-bottom: 64px;
+}
+
+.rightSubtitle {
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 44px;
+}
+
+.daySummary {
+  margin-bottom: 48px;
+}
+
+.calendarCard {
+  width: 288px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.cardTime {
+  margin-top: 5px;
+  display: flex;
+  font-size: 20px;
+}
+.colorBlock {
+  width: 5px;
+  border-radius: 5px;
+  background-color: coral;
+}
+
+.cardInfo {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 16px;
+}
+
+.category {
+  font-weight: normal;
+}
+
+.description {
+  font-weight:bold;
+}
