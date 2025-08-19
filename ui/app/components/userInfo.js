@@ -40,13 +40,10 @@ export default function UserInfo({ url, userName, userRole, matchReason }) {
     return (
       <div className={styles.card}>
         <div className={styles.cardTop}>
-          <ProfilePic
-            url="https://pyxis.nymag.com/v1/imgs/5ff/9bc/6098962edd260c49d52d4b2b58d4df0b62-13-miles-morales-lede.rsquare.w400.jpg"
-            size="small"
-          />
+          <ProfilePic size="small" />
           <div className={styles.userInfo}>
-            <h2>Miles Morales</h2>
-            <h4 className={styles.subtitle}>Design Engineer</h4>
+            <h2>User Name</h2>
+            <h4 className={styles.subtitle}>User Role</h4>
           </div>
           <div className={styles.buttonContainer}>
             <div className={styles.topButtons}>
@@ -65,7 +62,7 @@ export default function UserInfo({ url, userName, userRole, matchReason }) {
         <div className={styles.divider} />
         <div className={styles.cardBottom}>
           <h4 className={styles.subtitle}>Match Reason</h4>
-          <h3>{matchReason}</h3>
+          <h3>Example Match Reason</h3>
         </div>
       </div>
     );
