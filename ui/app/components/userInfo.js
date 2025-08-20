@@ -1,7 +1,15 @@
 import styles from "../stylesheets/userInfo.module.css";
 import ProfilePic from "../components/profilePicture";
-import { MailOutlined, EllipsisOutlined } from "@ant-design/icons";
+import {
+  MailOutlined,
+  EllipsisOutlined,
+  SlackOutlined,
+} from "@ant-design/icons";
 import { Button } from "antd";
+
+{
+  /* <SlackOutlined /> */
+}
 
 export default function UserInfo({ url, userName, userRole, matchReason }) {
   if (url && userName && userRole && matchReason) {
@@ -20,6 +28,12 @@ export default function UserInfo({ url, userName, userRole, matchReason }) {
                 type="primary"
                 shape="circle"
                 icon={<MailOutlined />}
+              />
+              <Button
+                className={styles.circleButton}
+                type="primary"
+                shape="circle"
+                icon={<SlackOutlined />}
               />
               <Button
                 className={styles.circleButton}
@@ -56,6 +70,12 @@ export default function UserInfo({ url, userName, userRole, matchReason }) {
                 type="primary"
                 shape="circle"
                 icon={<MailOutlined />}
+              />
+              <Button
+                className={styles.circleButton}
+                type="primary"
+                shape="circle"
+                icon={<SlackOutlined />}
               />
               <Button
                 className={styles.circleButton}
