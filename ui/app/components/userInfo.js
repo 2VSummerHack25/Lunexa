@@ -2,8 +2,6 @@ import styles from "../stylesheets/userInfo.module.css";
 import ProfilePic from "../components/profilePicture";
 import { MailOutlined, EllipsisOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-{
-}
 
 export default function UserInfo({ url, userName, userRole, matchReason }) {
   if (url && userName && userRole && matchReason) {
@@ -17,8 +15,14 @@ export default function UserInfo({ url, userName, userRole, matchReason }) {
           </div>
           <div className={styles.buttonContainer}>
             <div className={styles.topButtons}>
-              <Button type="primary" shape="circle" icon={<MailOutlined />} />
               <Button
+                className={styles.circleButton}
+                type="primary"
+                shape="circle"
+                icon={<MailOutlined />}
+              />
+              <Button
+                className={styles.circleButton}
                 type="primary"
                 shape="circle"
                 icon={<EllipsisOutlined />}
@@ -31,8 +35,8 @@ export default function UserInfo({ url, userName, userRole, matchReason }) {
         </div>
         <div className={styles.divider} />
         <div className={styles.cardBottom}>
-          <h4 className={styles.subtitle}>Match Reason</h4>
-          <h3>{matchReason}</h3>
+          <h4 className={styles.lowerTitle}>Match Reason</h4>
+          <h3 className={styles.lowerReason}>{matchReason}</h3>
         </div>
       </div>
     );
@@ -47,8 +51,14 @@ export default function UserInfo({ url, userName, userRole, matchReason }) {
           </div>
           <div className={styles.buttonContainer}>
             <div className={styles.topButtons}>
-              <Button type="primary" shape="circle" icon={<MailOutlined />} />
               <Button
+                className={styles.circleButton}
+                type="primary"
+                shape="circle"
+                icon={<MailOutlined />}
+              />
+              <Button
+                className={styles.circleButton}
                 type="primary"
                 shape="circle"
                 icon={<EllipsisOutlined />}
@@ -61,8 +71,8 @@ export default function UserInfo({ url, userName, userRole, matchReason }) {
         </div>
         <div className={styles.divider} />
         <div className={styles.cardBottom}>
-          <h4 className={styles.subtitle}>Match Reason</h4>
-          <h3>Example Match Reason</h3>
+          <h4 className={styles.lowerTitle}>Match Reason</h4>
+          <h3 className={styles.lowerReason}>Example Match Reason</h3>
         </div>
       </div>
     );
