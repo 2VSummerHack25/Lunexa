@@ -1,0 +1,94 @@
+.card {
+  height: 364px;
+  width: 564px;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow:hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.cardTop {
+  padding: 24px;
+  display:flex;
+  flex-direction: row;
+  gap: 20px;
+  height: 40%;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  color: var(--text-color);
+}
+
+.subtitle {
+  font-weight: normal;
+}
+
+.buttonContainer {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.circleButton {
+  background-color: var(--primary-color);
+}
+
+.meetingButton {
+  font-weight:500;
+  background-color: var(--primary-color);
+}
+
+.meetingInfo{
+  padding: 24px;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dateContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.meetingLinkInfo {
+  display: flex;
+  gap: 24px;
+}
+
+.calendarIcon {
+  font-size: 32px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meetingIcon {
+  font-size: 32px;
+}
+
+.linkContainer {
+  background-color: var(--global-background-color);
+  border-radius: 8px;
+  padding: 12px;
+  color: #166BFF;
+}
+
+.miniTitle {
+  font-weight: normal;
+  color: grey;
+}
